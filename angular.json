@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-ai-simple-demo": {
+    "angular-ai-gemini-masterclass-1": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -24,7 +24,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": [
+              "src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
@@ -54,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-ai-simple-demo:build:production"
+              "buildTarget": "angular-ai-gemini-masterclass-1:build:production"
             },
             "development": {
-              "buildTarget": "angular-ai-simple-demo:build:development"
+              "buildTarget": "angular-ai-gemini-masterclass-1:build:development"
             }
           },
           "defaultConfiguration": "development"
