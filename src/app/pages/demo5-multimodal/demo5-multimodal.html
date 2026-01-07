@@ -1,0 +1,29 @@
+<!-- Fixed Scrollable Side Div (Now on Left) -->
+<div class="fixed left-0 top-18 bottom-0 w-96 h-full overflow-y-auto bg-gray-50 border-r border-gray-200 shrink-0 p-3">
+  <!-- Side Bar -->
+  <form (submit)="ask($event)">
+    <textarea [field]="form.text" placeholder="Analyze documents"></textarea>
+    <app-upload-file [field]="form.file" accept="image/*,application/pdf" />
+
+    <div class="flex gap-2 mt-4 py-4 border-t">
+      <button (click)="reset()" type="button" class="secondary">RESET</button>
+      <button class="primary" [disabled]="form().invalid()">GENERATE IMAGE</button>
+    </div>
+  </form>
+
+  <pre>{{ data() | json }}</pre>
+</div>
+
+<!-- Main Content (Centered) -->
+<div class="ml-96">
+  <!-- <div class="text-center">Placeholder</div> -->
+  @if (geminiService.contentResource.isLoading()) {
+  <div class="text-center">Loading...</div>
+  }
+
+  @if (geminiService.contentResource.error()?.message) {
+  <div class="p-4 bg-red-100 text-red-800 rounded mt-4">Gemini Error</div>
+  } @else {
+  <div [innerHTML]="geminiService.contentResource.value()"></div>
+  }
+</div>

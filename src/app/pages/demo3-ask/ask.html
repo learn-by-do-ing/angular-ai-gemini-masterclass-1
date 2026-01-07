@@ -1,0 +1,27 @@
+<h1>Demo 3: ask</h1>
+
+<form (submit)="ask($event)">
+  <textarea [field]="form.text" placeholder="Ask..."></textarea>
+  <app-upload-file [field]="form.base64" />
+
+  @if (geminiService.contentResource.isLoading()) {
+  <div>Loading...</div>
+  }
+  <ul class="text-red-500 mt-2">
+    @for (error of form.text().errors(); track $index) {
+    <li>{{ error.message }}</li>
+    }
+  </ul>
+
+  <div class="flex gap-2 mt-4">
+    <button type="button" class="secondary" (click)="reset()">Reset</button>
+    <button class="primary" [disabled]="form().invalid()">Submit</button>
+  </div>
+
+  @if (geminiService.contentResource.error()?.message) {
+  <div class="p-4 bg-red-100 text-red-800 rounded mt-4">Gemini Error</div>
+  } @else {
+  <div [innerHTML]="markdown()" class="mt-4"></div>
+  }
+  <pre class="mt-4">{{ data() | json }}</pre>
+</form>
