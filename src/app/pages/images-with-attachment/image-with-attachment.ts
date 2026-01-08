@@ -4,12 +4,13 @@ import { signal } from '@angular/core';
 import { GeminiImageService } from './services/gemini-image.service';
 import { UploadFile } from '../../shared/upload-file';
 import { JsonPipe } from '@angular/common';
+import { LoaderComponent } from '../../shared/loader';
 
 const initialState = { text: '', image: '' };
 
 @Component({
   selector: 'app-image-with-attachment',
-  imports: [Field, UploadFile, JsonPipe],
+  imports: [Field, UploadFile, JsonPipe, LoaderComponent],
   templateUrl: './image-with-attachment.html',
   styleUrl: './image-with-attachment.css',
 })

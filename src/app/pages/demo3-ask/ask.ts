@@ -4,12 +4,13 @@ import { Field, form, required } from '@angular/forms/signals';
 import { GeminiService } from './services/gemini.service';
 import { marked } from 'marked';
 import { UploadFile } from '../../shared/upload-file';
+import { LoaderComponent } from '../../shared/loader';
 
 const initialState = { text: '', base64: '' };
 
 @Component({
   selector: 'app-ask',
-  imports: [JsonPipe, Field, UploadFile],
+  imports: [JsonPipe, Field, UploadFile, LoaderComponent],
   templateUrl: './ask.html',
   styleUrl: './ask.css',
 })

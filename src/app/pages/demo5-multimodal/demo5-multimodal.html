@@ -3,11 +3,11 @@
   <!-- Side Bar -->
   <form (submit)="ask($event)">
     <textarea [field]="form.text" placeholder="Analyze documents"></textarea>
-    <app-upload-file [field]="form.file" accept="image/*,application/pdf" />
+    <app-upload-file [field]="form.file"  />
 
     <div class="flex gap-2 mt-4 py-4 border-t">
       <button (click)="reset()" type="button" class="secondary">RESET</button>
-      <button class="primary" [disabled]="form().invalid()">GENERATE IMAGE</button>
+      <button class="primary" [disabled]="form().invalid()">ANALYZE</button>
     </div>
   </form>
 
@@ -18,12 +18,14 @@
 <div class="ml-96">
   <!-- <div class="text-center">Placeholder</div> -->
   @if (geminiService.contentResource.isLoading()) {
-  <div class="text-center">Loading...</div>
+   <div class="flex justify-center">
+      <app-loader />
+    </div>
   }
 
   @if (geminiService.contentResource.error()?.message) {
-  <div class="p-4 bg-red-100 text-red-800 rounded mt-4">Gemini Error</div>
+    <div class="p-4 bg-red-100 text-red-800 rounded mt-4">Gemini Error</div>
   } @else {
-  <div [innerHTML]="geminiService.contentResource.value()"></div>
+    <div [innerHTML]="geminiService.contentResource.value()"></div>
   }
 </div>

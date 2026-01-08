@@ -4,12 +4,13 @@ import { signal } from '@angular/core';
 import { GeminiAnalyzeService } from './services/gemini-analyze.service';
 import { UploadFile } from '../../shared/upload-file';
 import { JsonPipe } from '@angular/common';
+import { LoaderComponent } from '../../shared/loader';
 
 const initialState = { text: '', file: '' };
 
 @Component({
   selector: 'app-demo5-multimodal',
-  imports: [Field, UploadFile, JsonPipe],
+  imports: [Field, UploadFile, JsonPipe, LoaderComponent],
   templateUrl: './demo5-multimodal.html',
 })
 export default class Demo5Multimodal {

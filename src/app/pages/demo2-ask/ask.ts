@@ -3,19 +3,20 @@ import { JsonPipe } from '@angular/common';
 import { Field, form, required } from '@angular/forms/signals';
 import { GoogleGenAI } from '@google/genai';
 import { environment } from '../../../environments/environment';
+import { LoaderComponent } from '../../shared/loader';
 
 const initialState = { text: '' };
 
 @Component({
   selector: 'app-ask',
-  imports: [JsonPipe, Field],
+  imports: [JsonPipe, Field, LoaderComponent],
   templateUrl: './ask.html',
   styleUrl: './ask.css',
 })
 export default class Ask {
   protected readonly data = signal(initialState);
   protected readonly prompt = signal('');
-  ai = new GoogleGenAI({ apiKey: environment.apiKey })
+  ai = new GoogleGenAI({ apiKey: environment.apiKey });
 
   protected readonly form = form(this.data, (p) => {
     required(p.text, { message: 'Name is required' });
@@ -30,20 +31,19 @@ export default class Ask {
     this.data.set(initialState);
   }
 
-
   contentResource = resource<string | undefined, string>({
     params: () => this.prompt(),
     loader: async ({ params, abortSignal }) => {
-      if (!params) return undefined
+      if (!params) return undefined;
 
       const response = await this.ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: 'gemini-3-flash-preview',
         contents: params,
         config: {
-          abortSignal
-        }
+          abortSignal,
+        },
       });
-      return response.text
+      return response.text;
     },
   });
 }

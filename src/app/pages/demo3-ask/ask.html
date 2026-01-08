@@ -5,7 +5,7 @@
   <app-upload-file [field]="form.base64" />
 
   @if (geminiService.contentResource.isLoading()) {
-  <div>Loading...</div>
+  <app-loader />
   }
   <ul class="text-red-500 mt-2">
     @for (error of form.text().errors(); track $index) {

@@ -20,7 +20,9 @@
 <div class="ml-96">
   <!-- <div class="text-center">Placeholder</div> -->
   @if (geminiService.contentResource.isLoading()) {
-    <div class="text-center">Loading...</div>
+    <div class="flex justify-center">
+      <app-loader />
+    </div>
   }
 
   @if (geminiService.contentResource.error()?.message) {

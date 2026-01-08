@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { GoogleGenAI } from '@google/genai';
 import { environment } from '../../../environments/environment';
 import { marked } from 'marked';
+import { LoaderComponent } from '../../shared/loader';
 
 @Component({
   selector: 'app-chat',
@@ -12,13 +13,23 @@ import { marked } from 'marked';
       #input (keydown.enter)="send(input)"
       style="position: fixed; bottom: 20px; right: 20px; left: 20px; padding: 20px"
     >
-    @if (pending()) { <div style="text-align: center">loading...</div>}
-
+  
     @for (msg of messages(); track msg) {
-      <h1>{{msg.question}}</h1>
-      <div  [innerHTML]="msg.answer" style="margin-bottom: 100px"></div>
+      <h1 class="question">
+        @if (pending() && msg.answer === '') {
+          <app-loader></app-loader>
+        }
+        {{msg.question}}
+      </h1>
+
+      
+      <div 
+        class="answer" [innerHTML]="msg.answer"
+        [style.margin-bottom.px]="100"></div>
     }   
+
   `,
+  imports: [LoaderComponent]
 })
 export default class ChatComponent {
   ai = new GoogleGenAI({ apiKey: environment.apiKey });
@@ -41,22 +52,41 @@ export default class ChatComponent {
 
   async send(input: HTMLInputElement) {
     this.pending.set(true)
-    const response = await this.chat.sendMessage({ message: input.value })
-    const answer = await marked.parse(response.text || '', { breaks: true })
-
+    const prompt = input.value;
+    input.value = ''
     this.messages.update(prev => [...prev, {
-      question: input.value,
-      answer: answer
+      question: prompt,
+      answer: ''
     }])
-    input.value = '';
-
-    this.pending.set(false)
 
     setTimeout(() => {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-      })
+      const questions = document.querySelectorAll('h1.question');
+      const lastQuestion = questions[questions.length - 1];
+      if (lastQuestion) {
+        lastQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }, 300)
+
+
+    const response = await this.chat.sendMessage({ message: prompt })
+    const answer = await marked.parse(response.text || '', { breaks: true })
+
+    this.messages.update(prev => {
+      const newPrev = [...prev]
+      newPrev[newPrev.length - 1].answer = answer
+      return newPrev
+    })
+    this.pending.set(false)
+
+    // input.value = '';
+    /* 
+        setTimeout(() => {
+          const answers = document.querySelectorAll('div.answer');
+          const lastAnswer = answers[answers.length - 1];
+          if (lastAnswer) {
+            lastAnswer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 300) */
+
   }
 }
