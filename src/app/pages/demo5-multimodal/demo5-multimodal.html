@@ -1,9 +1,11 @@
 <!-- Fixed Scrollable Side Div (Now on Left) -->
-<div class="fixed left-0 top-18 bottom-0 w-96 h-full overflow-y-auto bg-gray-50 border-r border-gray-200 shrink-0 p-3">
+<div
+  class="fixed left-0 top-18 bottom-0 w-96 h-full overflow-y-auto bg-gray-50 border-r border-gray-200 shrink-0 p-3"
+>
   <!-- Side Bar -->
   <form (submit)="ask($event)">
-    <textarea [field]="form.text" placeholder="Analyze documents"></textarea>
-    <app-upload-file [field]="form.file"  />
+    <textarea [formField]="form.text" placeholder="Analyze documents"></textarea>
+    <app-upload-file [formField]="form.file" />
 
     <div class="flex gap-2 mt-4 py-4 border-t">
       <button (click)="reset()" type="button" class="secondary">RESET</button>
@@ -18,7 +20,7 @@
 <div class="ml-96">
   <!-- <div class="text-center">Placeholder</div> -->
   @if (geminiService.contentResource.isLoading()) {
-   <div class="flex justify-center">
+    <div class="flex justify-center">
       <app-loader />
     </div>
   }

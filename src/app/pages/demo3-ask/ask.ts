@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { Field, form, required } from '@angular/forms/signals';
+import { FormField, form, required } from '@angular/forms/signals';
 import { GeminiService } from './services/gemini.service';
 import { marked } from 'marked';
 import { UploadFile } from '../../shared/upload-file';
@@ -10,7 +10,7 @@ const initialState = { text: '', base64: '' };
 
 @Component({
   selector: 'app-ask',
-  imports: [JsonPipe, Field, UploadFile, LoaderComponent],
+  imports: [JsonPipe, FormField, UploadFile, LoaderComponent],
   templateUrl: './ask.html',
   styleUrl: './ask.css',
 })

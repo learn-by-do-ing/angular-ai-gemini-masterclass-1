@@ -4,8 +4,8 @@
 >
   <!-- Side Bar -->
   <form (submit)="ask($event)">
-    <textarea [field]="form.text" placeholder="Generate an image of..."></textarea>
-    <app-upload-file [field]="form.image" accept="image/*" />
+    <textarea [formField]="form.text" placeholder="Generate an image of..."></textarea>
+    <app-upload-file [formField]="form.image" accept="image/*" />
 
     <div class="flex gap-2 mt-4 py-4 border-t">
       <button (click)="reset()" type="button" class="secondary">RESET</button>

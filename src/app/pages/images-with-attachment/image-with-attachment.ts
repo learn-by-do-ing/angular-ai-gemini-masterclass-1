@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { FormField, form, required } from '@angular/forms/signals';
 import { signal } from '@angular/core';
 import { GeminiImageService } from './services/gemini-image.service';
 import { UploadFile } from '../../shared/upload-file';
@@ -10,7 +10,7 @@ const initialState = { text: '', image: '' };
 
 @Component({
   selector: 'app-image-with-attachment',
-  imports: [Field, UploadFile, JsonPipe, LoaderComponent],
+  imports: [FormField, UploadFile, JsonPipe, LoaderComponent],
   templateUrl: './image-with-attachment.html',
   styleUrl: './image-with-attachment.css',
 })

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { form, FormField, required } from '@angular/forms/signals';
 import { signal } from '@angular/core';
 import { GeminiAnalyzeService } from './services/gemini-analyze.service';
 import { UploadFile } from '../../shared/upload-file';
@@ -10,7 +10,7 @@ const initialState = { text: '', file: '' };
 
 @Component({
   selector: 'app-demo5-multimodal',
-  imports: [Field, UploadFile, JsonPipe, LoaderComponent],
+  imports: [FormField, UploadFile, JsonPipe, LoaderComponent],
   templateUrl: './demo5-multimodal.html',
 })
 export default class Demo5Multimodal {

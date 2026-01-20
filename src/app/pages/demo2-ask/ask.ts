@@ -1,6 +1,6 @@
 import { Component, resource, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { Field, form, required } from '@angular/forms/signals';
+import { FormField, form, required } from '@angular/forms/signals';
 import { GoogleGenAI } from '@google/genai';
 import { environment } from '../../../environments/environment';
 import { LoaderComponent } from '../../shared/loader';
@@ -9,7 +9,7 @@ const initialState = { text: '' };
 
 @Component({
   selector: 'app-ask',
-  imports: [JsonPipe, Field, LoaderComponent],
+  imports: [JsonPipe, FormField, LoaderComponent],
   templateUrl: './ask.html',
   styleUrl: './ask.css',
 })
